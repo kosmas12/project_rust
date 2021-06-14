@@ -10,6 +10,9 @@ make, but I'm trying my best to make it good in regard
 to the story and the gameplay. Don't want you to get
 bored, now, do I? :)
 
+**NOTE: THIS GAME IS HEAVILY WORK IN PROGRESS AND
+MOST THINGS AREN'T THERE YET**
+
 # License
 
 This code is licensed under the GNU General Public
