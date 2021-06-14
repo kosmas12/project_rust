@@ -19,7 +19,6 @@
 
 
 use std::io::{self, Write};
-use std::fs::File;
 use std::fs::OpenOptions;
 
 fn flush_stdout() {
@@ -94,7 +93,7 @@ fn create_savefile() {
     let mut file_name = verify_player_name();
     file_name.push_str(".sav");
 
-    let file = OpenOptions::new()
+    let _file = OpenOptions::new()
         .write(true)
         .create_new(true)
         .open(file_name);
