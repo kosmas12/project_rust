@@ -15,11 +15,13 @@
     You should have received a copy of the GNU General Public License along
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
-
+*/
 
 use std::io::{self, Write};
+use std::fs::{ReadDir, read_dir};
 use std::fs::OpenOptions;
+use std::process::exit;
+use std::ffi::OsStr;
 
 fn flush_stdout() {
     let flush = io::stdout().flush();
@@ -31,7 +33,6 @@ fn flush_stdout() {
 }
 
 fn get_input() -> String {
-
     let mut input = String::new();
 
     io::stdin()
@@ -45,7 +46,7 @@ fn get_input() -> String {
 }
 
 
-fn ask_for_input() -> String {
+fn ask_for_str_input() -> String {
     print!("Enter your input: ");
     flush_stdout();
 
@@ -55,15 +56,23 @@ fn ask_for_input() -> String {
 
 }
 
+fn ask_for_int_input() -> i32 {
+    let input = ask_for_str_input();
+
+    input.parse::<i32>().unwrap()
+}
+
 fn get_player_name() -> String {
     flush_stdout();
 
-    let name = ask_for_input();
+    let name = ask_for_str_input();
 
     name
 }
 
 fn verify_player_name() -> String {
+    println!("Please enter your name");
+
     let mut name = get_player_name();
     let mut verified = false;
 
@@ -74,8 +83,7 @@ fn verify_player_name() -> String {
         println!("1. Yes");
         println!("2. No\n");
 
-        let confirm = ask_for_input();
-        let confirm_num = confirm.parse::<i32>().unwrap();
+        let confirm_num = ask_for_int_input();
 
         if confirm_num == 2 {
             println!("Please reenter your name");
@@ -100,14 +108,49 @@ fn create_savefile() {
 
 }
 
+fn load_savefile() {
+    let mut directory = read_dir(".").unwrap();
+
+    println!("Please pick a savefile number:\n");
+
+    let mut file_index = 0;
+
+    for i in directory {
+        let file_path = i.unwrap().path();
+        if file_path.extension() == Some(OsStr::new("sav")) {
+            println!("{}: {}", file_index, file_path.display());
+            file_index += 1;
+        }
+    }
+}
+
+fn menu() {
+    println!("Hello and welcome to Project Rust!\n");
+
+    println!("What would you like to do?");
+    println!("1. Load existing game save");
+    println!("2. Start new game");
+    println!("3. Exit");
+
+    let menu_choice = ask_for_int_input();
+
+    if menu_choice == 1 {
+        load_savefile();
+    }
+    else if menu_choice == 2 {
+        create_savefile();
+    }
+    else {
+        exit(0);
+    }
+}
+
 fn start() {
     // Clear terminal screen
     print!("{}[2J", 27 as char);
     print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
 
-    println!("Hello and welcome to Project Rust!");
-    println!("Please enter your name");
-    create_savefile();
+    menu();
 }
 
 fn main() {
