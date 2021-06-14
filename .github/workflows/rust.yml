@@ -21,7 +21,6 @@ jobs:
     - name: Run tests
       run: cargo test --verbose
       
-    - name: Upload artifact
     - uses: actions/upload-artifact@v2
       with:
         name: Project_Rust-Linux64
