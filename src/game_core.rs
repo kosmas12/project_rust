@@ -17,22 +17,41 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-use std::env;
-mod game_core;
-mod savefiles;
-mod menu;
-mod levels;
+use std::io::{self, Write};
 
+pub fn flush_stdout() {
+    let flush = io::stdout().flush();
 
-fn start() {
-    // Clear terminal screen
-    print!("{}[2J", 27 as char);
-    print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
-
-    menu::show_menu();
+    match flush {
+        Ok(flush) => flush,
+        Err(error) => panic!("Error 1. Couldn't flush buffer. Reason {:?}", error),
+    };
 }
 
-fn main() {
-    let args: Vec<String> = env::args().collect();
-    start();
+pub fn get_input() -> String {
+    let mut input = String::new();
+
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Error 2. Couldn't get input.\n");
+
+    // Get rid of newline character
+    input.pop();
+
+    input
+}
+
+pub fn ask_for_str_input() -> String {
+    print!("Enter your input: ");
+    flush_stdout();
+
+    let input = get_input();
+
+    input
+}
+
+pub fn ask_for_int_input() -> i32 {
+    let input = ask_for_str_input();
+
+    input.parse::<i32>().unwrap()
 }
