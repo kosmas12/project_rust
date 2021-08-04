@@ -17,12 +17,9 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-use std::env;
 mod game_core;
-mod savefiles;
+mod save_files;
 mod menu;
-mod levels;
-
 
 fn start() {
     // Clear terminal screen
@@ -33,6 +30,6 @@ fn start() {
 }
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
+
     start();
 }

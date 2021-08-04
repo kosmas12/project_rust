@@ -23,9 +23,9 @@ use crate::game_core;
 use std::fs::{OpenOptions, File};
 use std::fs::{read_dir};
 use std::ffi::{OsStr, OsString};
-use std::io::{self, LineWriter, Write, BufRead};
-use std::fs;
+use std::io::{self, Write, BufRead};
 use std::path::PathBuf;
+use std::process::exit;
 
 pub fn create_savefile() {
     let mut file_name = menu::verify_player_name();
@@ -39,13 +39,7 @@ pub fn create_savefile() {
 }
 
 pub fn save(save_file: String, level: i32) {
-    let mut file = OpenOptions::new()
-        .write(true)
-        .open(save_file)
-        .unwrap();
-
-    writeln!(file, "Level {}\n{}", level, ((20 - level) * 2));
-
+    panic!("Saving not implemented");
 }
 
 fn ask_for_savefile() -> OsString {
@@ -87,23 +81,6 @@ fn ask_for_savefile() -> OsString {
     file_name
 }
 
-pub fn load_savefile() -> u32 {
-    let selected_file = ask_for_savefile();
-    let save_file = File::open(selected_file).unwrap();
-    let mut reader = io::BufReader::new(save_file);
-
-    let mut level = 0;
-
-    let mut line = String::new();
-    reader.read_line(&mut line);
-
-    if !line.is_empty() {
-        level = line.chars().last().unwrap().to_digit(10).unwrap();
-    }
-    else {
-        println!("Empty savefile provided, starting level 0");
-        level = 0;
-    }
-
-    level
+pub fn load_savefile() {
+    panic!("Loading not implemented");
 }

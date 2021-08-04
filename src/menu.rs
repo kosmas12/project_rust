@@ -19,8 +19,7 @@
 
 use std::process::exit;
 use crate::game_core;
-use crate::savefiles;
-use crate::levels;
+use crate::save_files;
 
 pub fn get_new_player_name() -> String {
     game_core::flush_stdout();
@@ -67,13 +66,11 @@ pub fn show_menu() {
 
     let menu_choice = game_core::ask_for_int_input();
 
-    if menu_choice == 1 {
-        savefiles::load_savefile();
-    }
-    else if menu_choice == 2 {
-        savefiles::create_savefile();
-    }
-    else {
-        exit(0);
-    }
+
+    match menu_choice {
+        1 => save_files::load_savefile(),
+        2 => save_files::create_savefile(),
+        _ => exit(0),
+    };
+
 }

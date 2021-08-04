@@ -7,11 +7,18 @@ programming in the first place: Game Development.
 
 This isn't close to a game that a big company would
 make, but I'm trying my best to make it good in regard
-to the story and the gameplay. Don't want you to get
-bored, now, do I? :)
+to the gameplay, the story and the satisfaction 
+meter. Don't want you to get bored, now, do I? :)
 
 **NOTE: THIS GAME IS HEAVILY WORK IN PROGRESS AND
 MOST THINGS AREN'T THERE YET**
+
+**This game was heavily inspired by Game Dev Tycoon
+and you will probably see lots of similar gameplay
+aspects**
+
+**THE NOTES IN THE NOTES DIRECTORY ARE DUE TO CHANGE
+FREQUENTLY UNTIL DEVELOPMENT IS COMPLETE**
 
 # License
 
